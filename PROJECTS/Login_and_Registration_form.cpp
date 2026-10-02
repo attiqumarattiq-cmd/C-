@@ -45,3 +45,22 @@ int main()
 
     return 0;
 }
+
+void temp :: signup()
+{
+    cout << "\nEnter Your User Name: ";
+    getline(cin, username);
+    cout << "Enter Your Email Address: ";
+    getline(cin, email);
+    cout << "Enter Your Password: ";
+    getline(cin, password);
+
+    file.open("logindata.txt", ios :: out | ios :: app);
+    file<<username<<" * "<<email<<" * "<<password<<" * "<<endl;
+    file.close();
+}
+
+void temp :: login()
+{
+    
+}
