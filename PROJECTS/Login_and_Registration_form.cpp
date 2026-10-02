@@ -62,5 +62,39 @@ void temp :: signup()
 
 void temp :: login()
 {
-    
+    string searchname;
+    string searchpassword;
+    cout << "---------- LOGIN ----------" << endl;
+    cout << "Enter Your User Name: " << endl;
+    getline(cin, searchname);
+    cout << "Enter Your Password: " << endl;
+    getline(cin, searchpassword);
+
+    file.open("logindata.txt", ios :: in);
+    getline(file, username, '*');
+    getline(file, email, '*');
+    getline(file, password, '\n');
+
+    while(!file.eof())
+    {
+        if(username == searchname)
+        {
+            if(password == searchpassword)
+            {
+                cout << "\nAccount Login Succesful.........." << endl;
+                cout << "Username: " << username << endl;
+                cout << "Email: " << email << endl;
+                cout << "Password: " << password << endl;
+            }
+        }
+        else 
+        {
+            cout << "Username / Password is not correct." << endl;
+        }
+    getline(file, username, '*');
+    getline(file, email, '*');
+    getline(file, password, '\n');
+    }
+    file.close();
+
 }
