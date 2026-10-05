@@ -2,148 +2,109 @@
 #include<fstream>
 using namespace std;
 
-class temp
-{
-    string username;
-    string email;
-    string password;
+class temp{
+    string userName,Email,password;
+    string searchName,searchPass,searchEmail;
     fstream file;
-    string searchname;
-    string searchpassword;
-    string searchemail;
-
-public:
+    public:
     void login();
-    void signup();
-    void forget();
+    void signUP();
+    void forgot();
 }obj;
 
-int main()
-{
+int main(){
     char choice;
-    cout << "\n1- Login";
-    cout << "\n2- Sign-up";
-    cout << "\n3- Forgot Password";
-    cout << "\n4- Exit";
-    cout << "\nEnter your choice: ";
-    cin >> choice;
+    cout<<"\n1- Login";
+    cout<<"\n2- Sign-Up";
+    cout<<"\n3- Forgot Password";
+    cout<<"\n4- Exit";
+    cout<<"\nEnter Your Choice :: ";
+    cin>>choice;
 
-    switch (choice)
-    {
-    case '1':
-        cin.ignore();
-        obj.login();
+    switch(choice){
+        case '1':
+            cin.ignore();
+            obj.login();
         break;
-    case '2':
-        cin.ignore();
-        obj.signup();
+        case '2':
+            cin.ignore();
+            obj.signUP();
         break;
-    case '3':
-        cin.ignore();
-        obj.forget();
+        case '3':
+            cin.ignore();
+            obj.forgot();
         break;
-    case '4':
-        return 0;
+        case '4':
+            return 0;
         break;
-    default:
-        cout << "Invalid Choice..........";
+        default:
+            cout<<"Invalid Selection...!";
     }
-
 }
+void temp :: signUP(){
+    cout<<"\nEnter Your User Name :: ";
+    getline(cin,userName);
+    cout<<"Enter Your Email Address :: ";
+    getline(cin,Email);
+    cout<<"Enter Your Password :: ";
+    getline(cin,password);
 
-void temp :: signup()
-{
-    cout << "===========================" << endl;
-    cout << "-------- Sign-Up ----------" << endl;
-    cout << "===========================" << endl;
-    cout << "\nEnter Your User Name: ";
-    getline(cin, username);
-    cout << "Enter Your Email Address: ";
-    getline(cin, email);
-    cout << "Enter Your Password: ";
-    getline(cin, password);
-
-    file.open("logindata.txt", ios :: out | ios :: app);
-    file<<username<<" * "<<email<<" * "<<password<<" * "<<endl;
+    ofstream file("loginData.txt",ios :: out | ios :: app);
+    file<<userName<<"*"<<Email<<"*"<<password<<endl;
     file.close();
 }
+void temp :: login(){
+ 
+    cout<<"----------LOGIN---------"<<endl;
+    cout<<"Enter Your User Name :: "<<endl;
+    getline(cin,searchName);
+    cout<<"Enter Your Password :: "<<endl;
+    getline(cin,searchPass);
 
-void temp :: login()
-{
-    string searchname;
-    string searchpassowrd;
-    cout << "===========================" << endl;
-    cout << "---------- LOGIN ----------" << endl;
-    cout << "===========================" << endl;
-    cout << "Enter Your User Name: " << endl;
-    getline(cin, searchname);
-    cout << "Enter Your Password: " << endl;
-    getline(cin, searchpassword);
-
-    file.open("logindata.txt", ios :: in);
-    getline(file, username, '*');
-    getline(file, email, '*');
-    getline(file, password, '\n');
-
-    while(!file.eof())
-    {
-        if(username == searchname)
-        {
-            if(password == searchpassword)
-            {
-                cout << "--------------------------------------" << endl;
-                cout << "\nAccount Loged in .........." << endl;
-                cout << "Username: " << username << endl;
-                cout << "Email: " << email << endl;
-                cout << "Password: " << password << endl;
-                cout << "--------------------------------------" << endl;
+    ifstream file("loginData.txt",ios :: in);
+    getline(file,userName,'*');
+    getline(file,Email,'*');
+    getline(file,password,'\n');
+    while(!file.eof()){
+        if(userName == searchName){
+            if(password == searchPass){
+                cout<<"\nAccount Login Succesfull...!";
+                cout<<"\nUsername :: "<<userName<<endl;
+                cout<<"\nEmail :: "<<Email<<endl;
+            }else{
+                cout<<"Password is Incorrect...!";
             }
         }
-        else 
-        {
-            cout << "----------------------------------" << endl;
-            cout << "Username / Password is not correct." << endl;
-            cout << "----------------------------------" << endl;
-        }
-    getline(file, username, '*');
-    getline(file, email, '*');
-    getline(file, password, '\n');
+    getline(file,userName,'*');
+    getline(file,Email,'*');
+    getline(file,password,'\n');
     }
     file.close();
 }
+void temp :: forgot(){
+    cout<<"\nEnter Your UserName :: ";
+    getline(cin,searchName);
+    cout<<"\nEnter Your Email Address :: ";
+    getline(cin,searchEmail);
 
-void temp :: forget()
-{
-    cout << "\nEnter Your Username: " << endl;
-    getline(cin, searchname);
-    cout << "Enter Your Email Address: " << endl;
-    getline(cin, searchemail);
-
-    file.open("logindata.txt", ios :: in);
-    getline(file, username, '*');
-    getline(file, email, '*');
-    getline(file, password, '\n');
-    while(!file.eof())
-    {
-        if(username == searchname)
-        {
-            if(email == searchemail)
-        {
-            cout << "\nAccount Found...." << endl;
-            cout << "Your Password is: " << password << endl;
+    file.open("loginData.txt",ios :: in);
+    getline(file,userName,'*');
+    getline(file,Email,'*');
+    getline(file,password,'\n');
+    while(!file.eof()){
+        if(userName == searchName){
+            if(Email == searchEmail){
+                cout<<"\nAccount Found...!"<<endl;
+                cout<<"Your Password :: "<<password<<endl;
+            }else{
+                cout<<"Not found...!\n";
+            }
+        }else{
+            cout<<"\nNot fount...!\n";
         }
-            else
-        {
-            cout << "Not Found......" << endl;
-        }
-        }
-        else
-        {
-            cout << "Not Found......." << endl;
-        }
-
-        file.close();
+    getline(file,userName,'*');
+    getline(file,Email,'*');
+    getline(file,password,'\n');
     }
-
-
+    file.close();
 }
